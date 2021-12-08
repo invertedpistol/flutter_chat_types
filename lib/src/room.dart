@@ -15,6 +15,7 @@ enum RoomType { channel, direct, group }
 class Room extends Equatable {
   /// Creates a [Room]
   const Room({
+    this.blocked,
     this.createdAt,
     required this.id,
     this.imageUrl,
@@ -39,6 +40,7 @@ class Room extends Equatable {
   /// metadata will overwite keys from the previous one.
   /// [type] and [users] with null values will be overwritten by previous values.
   Room copyWith({
+    String? blocked
     String? imageUrl,
     Map<String, dynamic>? metadata,
     String? name,
@@ -47,6 +49,7 @@ class Room extends Equatable {
     List<User>? users,
   }) {
     return Room(
+      blocked: blocked ?? this.blocked,
       id: id,
       imageUrl: imageUrl,
       lastMessages: lastMessages,
@@ -66,6 +69,7 @@ class Room extends Equatable {
   /// Equatable props
   @override
   List<Object?> get props => [
+        blocked,
         createdAt,
         id,
         imageUrl,
@@ -76,7 +80,8 @@ class Room extends Equatable {
         updatedAt,
         users
       ];
-
+  
+  final String? blocked;
   /// Created room timestamp, in ms
   final int? createdAt;
 
